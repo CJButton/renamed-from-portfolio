@@ -1,8 +1,6 @@
 class Board
   attr_accessor :cups
 
-  # lets try to upload to git again
-  # let's try onece more
   def initialize(name1, name2)
     @name1 = name1
     @name2 = name2
@@ -25,22 +23,8 @@ class Board
   end
 
   def make_move(start_pos, current_player_name)
-    total = cups[start_pos].length
-    cups[start_pos] = []
 
-    # currently player two is going
-    #p current_player_name #home cup is 13
-    #p @name2
-    # @name1 home cup is 6
-    all_cups = (start_pos + 1..(total + start_pos)).to_a
-    rounded = all_cups.map {|el| el % 13}
 
-    rounded.each do |cup_i|
-      cups[cup_i] << :stone
-    end
-    make_move(rounded.last, current_player_name) if cups[rounded.last].empty?
-    #render
-    next_turn(rounded.last)
   end
 
   def next_turn(ending_cup_idx)
