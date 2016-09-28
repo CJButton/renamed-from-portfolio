@@ -1,0 +1,23 @@
+
+
+
+
+  # create_table "people_tables", force: :cascade do |t|
+  #   t.string   "name"
+  #   t.integer  "house_id"
+  #   t.datetime "created_at"
+  #   t.datetime "updated_at"
+  # end
+
+
+class Person < ActiveRecord::Base
+  validates :name, presence: true
+
+  belongs_to :house,
+    primary_key: :id,
+    foreign_key: :house_id,
+    class_name: 'House'
+
+
+
+end

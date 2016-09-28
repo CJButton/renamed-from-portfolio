@@ -15,8 +15,28 @@ class Play
   attr_accessor :title, :year, :playwright_id
 
   def self.all
+    # notice that here, we one lined the query
+    # but we could also have done it on several lines if we wished
     data = PlayDBConnection.instance.execute("SELECT * FROM plays")
     data.map { |datum| Play.new(datum) }
+  end
+
+  def self.find_by_playwright(name)
+    # what is this line doing here?
+    playwright = Playwright.find_by_name(name)
+    p playwright
+    raise "#{self} is not in the database" unless playwright
+
+    plays = PlayDBConnection.instance.execute(<<-SQL, playwright.id)
+    SELECT
+      *
+    FROM
+      plays
+    WHERE
+      playwright_id = ?
+
+  SQL
+  plays.map {|play| Play.new(play)}
   end
 
   def initialize(options)
@@ -53,10 +73,36 @@ end
 
 class Playwright
   attr_accessor :name, :birth_year
+  attr_reader :id
 
-  def self.all
-    data = PlayDBConnection.instance.execute("SELECT * FROM playwrights")
-    data.map {|datum| Playwright.new(datum) }
+  def self.find_by_name(name)
+    data = PlayDBConnection.instance.execute(<<-SQL, name)
+    SELECT
+      *
+    FROM
+      playwrights
+    WHERE
+      name = ?
+    SQL
+    return nil unless data.length > 0
+    Playwright.new(data.first)
+  end
+
+  def get_plays
+    # raise an error if he id isn't actually in the database
+    raise "#{self} not in database" unless @id
+    # the 'plays' variable will store the data we find in the query below
+    plays = PlayDBConnection.instance.execute(<<-SQL, id)
+      SELECT
+        *
+      FROM
+        plays
+      WHERE
+        playwright_id = ?
+    SQL
+    p plays
+    puts
+    plays.map {|play| Play.new(play)}
   end
 
   def initialize(options)
@@ -65,7 +111,10 @@ class Playwright
     @birth_year = options['birth_year']
   end
 
-
+  def self.all
+    data = PlayDBConnection.instance.execute("SELECT * FROM playwrights")
+    data.map {|datum| Playwright.new(datum) }
+  end
 
   def create
     raise "#{self} already in database" if @id
@@ -87,23 +136,6 @@ class Playwright
         name = ?, birth_year = ?
       WHERE
         id = ?
-    SQL
-  end
-
-  def get_plays
-    PlayDBConnection.instance.execute(<<-SQL, @name)
-
-  end
-
-
-  def self.find_by_name(name)
-    PlayDBConnection.instance.execute(<<-SQL, @name)
-    SELECT
-      birth_year
-    FROM
-      playwrights
-    WHERE
-      name = ?
     SQL
   end
 
