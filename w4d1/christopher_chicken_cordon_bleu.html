@@ -38,7 +38,7 @@
         <a href="https://en.wikipedia.org/wiki/Cordon_bleu_(dish)">Chicken Cordon Bleu</a>
           </figcaption>
   </figure>
-      <h2>Directions<h2>
+      <h3>Directions<h3>
         <ol>
           <li>
             Being by thawing the chicken.
@@ -54,7 +54,58 @@
           </li>
         </ol>
     </section>
-        
+
+    <section>
+      <h4>Reviews:</h4>
+
+      <form action="/reviews" method="post">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name">
+          <br>
+          <input type="radio" name="review[vote]" id="vote_five" value="5">
+          <label for="vote_five">5</label>
+          <br>
+
+          <input type="radio" name="review[vote]" id="vote_four" value="4">
+          <label for="vote_four">4</label>
+          <br>
+
+          <input type="radio" name="review[vote]" id="vote_five" value="3">
+          <label for="vote_three">3</label>
+          <br>
+
+          <input type="radio" name="review[vote]" id="vote_five" value="2">
+            <label for="vote_two">2</label>
+            <br>
+
+            <input type="radio" name="review[vote]" id="vote_five" value="1" checked>
+            <label for="vote_one">1</label>
+            <br>
+          <input type="submit" value="Submit vote">
+          <br>
+          <label>Review
+            <textarea name="review" cols="30" rows="10"></textarea>
+          </label>
+          <br>
+          <label for="expertise">Cooking Expertise</label>
+
+        <select id="expertise" name="expertise">
+          <option value="Select Cooking Expertise" disabled="true" selected="true">Select Cooking Experise</option>
+
+          <option value="Sometimes Cook">Sometimes Cook</option>
+
+          <option value="Cook Everyday">Cook Everyday</option>
+
+          <option value="Cooking is a Hobby">Cooking is a Hobby</option>
+
+          <option value="Professional Chef">Professional Chef</option>
+
+          <br>
+          <br>
+      </form>
+
+    </section>
+
         <footer>
           <p>You can find this great recipie here!</p>
           <a href="http://allrecipes.com/recipe/8669/chicken-cordon-bleu-ii/?evt19=1"</a>
