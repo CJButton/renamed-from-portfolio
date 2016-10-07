@@ -52,10 +52,10 @@
         <a href="https://en.wikipedia.org/wiki/Cordon_bleu_(dish)">Chicken Cordon Bleu</a>
           </figcaption>
   </figure>
-      <h4>Directions<h4>
+      <h3>Directions<h3>
         <ol>
           <li>
-            Begin by thawing the chicken.
+            Being by thawing the chicken.
           </li>
           <li>
             Chill the wine
@@ -73,8 +73,25 @@
 
     <section id="reviews">
       <h3>Reviews:</h3>
+        <form id="review-form" action="/reviews" method="post">
+          <label for="name">Name</label>
+          <input id="name" type="test" name"name">
+          <br>
+          <br>
+          <label for="rating">Rating</label>
+          1<input type="radio" name="rating" value="1">
+          2<input type="radio" name="rating" value="2">
+          3<input type="radio" name="rating" value="3">
+          4<input type="radio" name="rating" value="4">
+          5<input type="radio" name="rating" value="5" checked>
+          <input type="submit" value="Submit vote">
+          <br>
+          <br>
 
-
+          <label>Review
+            <textarea name="review" cols="30" rows="10"></textarea>
+          </label>
+          <br>
           <label for="expertise">Cooking Expertise</label>
 
         <select id="expertise" name="expertise">
