@@ -3,7 +3,7 @@ import React from 'react';
 class Calculator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {result: 0, num1: "", num2: "", history: []};
+    this.state = {result: 0, num1: "", num2: ""};
 
     // we must set 'this', otherwise when it gets to setNum1, it will be
     // 'undefined', and not set to Calculator
@@ -16,11 +16,7 @@ class Calculator extends React.Component {
 
 
   setNum1(event) {
-    let arr = this.state.history;
-    console.log(arr);
-    let updatedHistory = arr.push(parseInt(event.target.value, 10));
-    this.setState({num1: parseInt(event.target.value, 10),
-                                            history: updatedHistory});
+    this.setState({num1: parseInt(event.target.value, 10)});
   }
 
   setNum2(event) {
@@ -51,20 +47,16 @@ class Calculator extends React.Component {
     return (
       <div>
         <input type="text" placeholder="Enter a number!"
-          value={this.state.num1} onChange={this.setNum1} />
+          onChange={this.setNum1} />
 
         <input type="text" placeholder="Enter another number!"
-          value={this.state.num2} onChange={this.setNum2} />
+          onChange={this.setNum2} />
 
-
-
-  
         <br />
         <button onClick={this.handlePlus}>+</button>
         <button onClick={this.handleMinus}>-</button>
         <p>{this.state.result}</p>
         <button onClick={this.handleClear}>Clear</button>
-        <p>{this.state.history}</p>
       </div>
     );
   }
